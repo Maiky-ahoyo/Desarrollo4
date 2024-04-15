@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Ahorcado</title>
+    <link rel="stylesheet" href="static\css\estilos.css">
+  </head>
+  <body>
+    <div>
+        <div>
+            {{ abecedario }}
+        </div>
+        <div>
+            <img src="{{ imagen }}" alt="Juego del ahorcado">
+        </div>
+        <div>
+          {%- for val in lista_palabra -%}
+          {%- for keys in val -%}
+          {{ val[keys] + " "}}
+          {%- endfor -%}
+          {%- endfor -%}
+        </div>
+        <div class="textos">
+          {{ganado}}
+        </div>
+        <div>
+          <form action="{{ request.base_url }}" method="post">
+            <div>
+              {% from "dropdown.html" import dropdown %}
+              {{ dropdown('valor', lista_abc) }}
+              <button type="submit">Enviar</button>
+            </div>
+          </form>
+        </div>
+    </div>
+  </body>

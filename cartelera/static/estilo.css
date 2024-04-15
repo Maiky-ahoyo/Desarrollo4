@@ -1,0 +1,63 @@
+.contenido{
+    width: 98%;
+    margin: 1%;
+    text-align: center;
+    background-color: #ebe6ea;
+    padding: 1%;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card{
+    text-align: center;
+    display: inline-block;
+}
+
+.pelicula{
+    width: 98%;
+    margin: 1%;
+    display: flex;
+    background-color: #ebe6ea;
+    padding: 1%;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.pelicula img{
+    height: 594px;
+    width: auto;
+    border-radius: 10px;
+}
+
+.card-title{
+    font-size: 40px;
+    text-align: center;
+    padding-bottom: 4%;
+}
+
+.card-subtitle{
+    font-size: 24px;
+}
+
+.card-text{
+    padding-top: 2%;
+    font-size: 16px;
+}
+
+.table th{
+    background-color: #6f7357;
+    color: #fff;
+}
+
+table{
+    background-color: #e4c5c4;
+}
+
+footer{
+    background-color: #273a2d;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+    bottom: 0;
+    width: 100%;
+}

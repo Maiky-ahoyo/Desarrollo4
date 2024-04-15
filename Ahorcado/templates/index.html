@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ahorcado</title>
+        <link rel="stylesheet" href="/static/css/estilo.css">
+    </head>
+    <body>
+        <div class="columna">
+            <div class="titulo">Juego del Ahorcado</div>
+            <div class="renglon">
+                {{abcedario}}
+            </div>
+            <div class="renglon">
+                <img src="{{imagen}}" alt="Juego ahorcado">
+            </div>
+            <div class="renglon">
+                {%- for val in lista_pal -%}
+                  {%- for keys in val -%}
+                    <div class="letras">{{ val[keys] + " "}}</div>
+                  {%- endfor -%}
+                {%- endfor -%}
+            </div>
+            <div class="renglon">
+                <form action="{{ request.base_url }}" method="post">
+                    <div>                       
+                        {% if fin_juego %}
+                            <a href="/nuevo_juego">Nuevo juego</a>
+                        {% else %}                       
+                           {% from "dropdown.html" import dropdown %}
+                           {{ dropdown('valor',lista_abc) }}
+                           <button type="submit">Enviar</button>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
