@@ -92,6 +92,6 @@ def escribir_csv(revista):
 if __name__ == "__main__":
     os.system('cls')
     revistas = []
-    url = "https://www.scimagojr.com/journalrank.php?page=9&total_size=29165"
+    url = "https://www.scimagojr.com/journalrank.php?page=17&total_size=29165"
     html = procesar_html(url)
     extraer_datos(html)
