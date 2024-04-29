@@ -2,7 +2,6 @@ import requests
 from bs4 import BeautifulSoup as bs
 import os
 import csv
-import re
 
 def procesar_html(url):
     response = requests.get(url)
@@ -92,6 +91,6 @@ def escribir_csv(revista):
 if __name__ == "__main__":
     os.system('cls')
     revistas = []
-    url = "https://www.scimagojr.com/journalrank.php?page=17&total_size=29165"
+    url = "https://www.scimagojr.com/journalrank.php"
     html = procesar_html(url)
     extraer_datos(html)
