@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template # type: ignore
 from funciones import carga_csv, peliculas_mas_recientes
 from funciones import crea_diccionario_peliculas
 from funciones import crea_diccionario_genero
