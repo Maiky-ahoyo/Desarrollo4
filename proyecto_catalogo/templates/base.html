@@ -1,50 +1,79 @@
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    {% block head %}
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE-edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>{% block title %}Academia Unbound{% endblock %}</title>
-    {% endblock %}
+    <title>Academia Unbound{% block title %}{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    {% block head %}
+    {% endblock %}
   </head>
   <body >
     <header>
-      <nav class="bg-[#20305A] px-4 py-2.5">
-        <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl h-14">
-          <a href="/" class="flex items-center">
-            <img src="/static/Logo_academia.png" class="mr-3 h-6 sm:h-12" alt="Academia Unbound Logo"/>
-            <span class="self-center text-xl font-bold text-white">Academia Unbound</span>
-            <img src="/static/Logo_color.png" class="mx-3 h-6 sm:h-12" alt="Unison Logo"/>
-          </a>
-          <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
-            <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-              <li>
-                <a href="/" class="p-2 px-4 border-0 text-white bg-[#496EA5] hover:bg-gray-800 rounded-lg font-semibold hover:shadow-lg transition duration-4000">Home</a>
-              </li>
-              <li>
-                <a href="#" class="p-2 px-4 border-0 text-white bg-[#496EA5] hover:bg-gray-800 rounded-lg font-semibold hover:shadow-lg transition duration-4000">Areas</a>
-              </li>
-              <li>
-                <a href="#" class="p-2 px-4 border-0 text-white bg-[#496EA5] hover:bg-gray-800 rounded-lg font-semibold hover:shadow-lg transition duration-4000">Categories</a>
-              </li>
-              <li>
-                <a href="#" class="p-2 px-4 border-0 text-white bg-[#496EA5] hover:bg-gray-800 rounded-lg font-semibold hover:shadow-lg transition duration-4000">Catalogues</a>
-              </li>
-            </ul>
-          </div>
-          <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-2" id="mobile-menu-2">
-            <div class="flex bg-gray-100 py-2 px-3 mr-4 w-64 space-x-4 rounded-lg">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-              </svg>
-              <input class="bg-gray-100 outline-none" type="text" placeholder="Article name or keyword..." />
+      <nav class="bg-[#20305A]">
+        <div class="mx-auto max-w-[1240px] px-2">
+          <div class="relative flex h-16 items-center justify-between">
+            <div id="burger" class="absolute inset-y-0 left-0 flex items-center">
+              <!-- Mobile menu button-->
+              <button id="menu-button" type="button" class="relative inline-flex items-center justify-center text-white hover:bg-[#496EA5] rounded-md px-3 py-2 text-sm font-medium hover:shadow-lg transition duration-500" aria-controls="mobile-menu" aria-expanded="false">
+                <span class="absolute -inset-0.5"></span>
+                <span class="sr-only">Open main menu</span>
+                <!--Icon when menu is closed.-->
+                <svg id="menu-closed" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" style="display: block;">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                </svg>
+                <!--Icon when menu is open.-->
+                <svg id="menu-opened" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" style="display: none;">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
             </div>
-            <div class="p-2 px-4 border-0 text-white bg-[#496EA5] hover:bg-gray-800 rounded-lg font-semibold hover:shadow-lg transition duration-4000">
-              <span>Search</span>
-            </div>   
-          </div>     
+            <div id="navbar" class="flex flex-1 items-center">
+              <a href="/" class="flex flex-shrink-0 items-center">
+                <img class="h-10 w-auto" src="/static/Logo_Academia.png" alt="Academia Unbound Logo">
+                <span id="titulo" class="text-white font-medium mx-2">Academia Unbound</span>
+                <img class="h-10 w-auto" src="/static/Logo_color.png" alt="Unison Logo">
+              </a>
+              <div id="index" class="hidden">
+                <div class="flex space-x-4">
+                  <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                  <a id="home" href="/" class="text-white rounded-md px-3 py-2 text-sm font-medium hover:shadow-lg transition duration-500">Home</a>
+                  <a id="magazines" href="/magazines" class="text-white rounded-md px-3 py-2 text-sm font-medium hover:shadow-lg transition duration-500">Magazines</a>
+                  <a id="areas" href="/areas" class="text-white rounded-md px-3 py-2 text-sm font-medium hover:shadow-lg transition duration-500">Areas</a>
+                  <a id="categories" href="/categories" class="text-white rounded-md px-3 py-2 text-sm font-medium hover:shadow-lg transition duration-500">Categories</a>
+                </div>
+              </div>
+              <div id="searchbar" class="hidden justify-between items-center w-auto">
+                <div class="flex bg-gray-100 py-2 px-3 mr-4 w-64 space-x-4 rounded-md">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                  </svg>
+                  <input id="input" class="w-full h-full bg-gray-100 outline-none text-sm" type="text" placeholder="Article name or keyword..." />
+                </div>
+                <a id="search" class="text-white bg-gray-900 hover:bg-[#496EA5] rounded-md px-3 py-2 text-sm font-medium hover:shadow-lg transition duration-500 cursor-pointer">Search</a>   
+              </div> 
+            </div>
+          </div>
+        </div>
+        <!-- Mobile menu, show/hide based on menu state. -->
+        <div id="mobile-menu" style="display: none">
+          <div class="space-y-1 px-2 pb-3 pt-2">
+            <div class="flex">
+              <div class="flex bg-gray-100 py-2 px-3 mr-1 w-4/5 space-x-4 rounded-md">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+                <input id="input-mobile" class="w-full h-full bg-gray-100 outline-none text-sm" type="text" placeholder="Article name or keyword..." />
+              </div>
+              <a id="search-mobile" class="w-1/5 min-w-[72px] text-center text-white bg-gray-900 hover:bg-[#496EA5] rounded-md px-3 py-2 text-base font-medium hover:shadow-lg transition duration-500 cursor-pointer">Search</a>  
+            </div>
+            <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+            <a id="home-mobile" href="/" class="text-white rounded-md px-3 py-2 text-base font-medium hover:shadow-lg transition duration-500 block">Home</a>
+            <a id="magazines-mobile" href="/magazines" class="text-white rounded-md px-3 py-2 text-base font-medium hover:shadow-lg transition duration-500 block">Magazines</a>
+            <a id="areas-mobile" href="/areas" class="text-white rounded-md px-3 py-2 text-base font-medium hover:shadow-lg transition duration-500 block">Areas</a>
+            <a id="categories-mobile" href="/categories" class="text-white rounded-md px-3 py-2 text-base font-medium hover:shadow-lg transition duration-500 block">Categories</a>
+          </div>
         </div>
       </nav>
     </header>
@@ -52,27 +81,28 @@
     {% endblock %}
   </body>
   <footer class="bg-[#20305A] p-4">
-    <div>
-      <ul class="flex flex-wrap items-center text-center justify-between text-sm font-medium text-gray-400 sm:mt-0 mx-auto max-w-screen-xl">
-        <li>
-          <p>© 2023 Academia Unbound All Rights Reserved.</p>
-        </li>
-        <li>
-          <img src="/static/Miguel.png" alt="Imagen Miguel" class="w-40 rounded-full border-transparent">
-          <span class="text-white text-base">Miguel Arroyo</span>
-          <p>222214253</p>
-        </li>
-        <li>
-          <img src="/static/Francisco.png" alt="Imagen Francisco" class="w-40 rounded-full border-transparent">
-          <span class="text-white text-base">Francisco Perez</span>
-          <p>222214463</p>
-        </li>
-        <li>
-          <img src="/static/Allison.png" alt="Imagen Allison" class="w-40 rounded-full border-transparent">
-          <span class="text-white text-base">Allison Navalles</span>
-          <p>222204136</p>
-        </li>
-      </ul>
+    <div class="w-10/12 flex flex-wrap items-center text-center justify-between text-sm font-medium text-gray-400 mx-auto">
+      <div class="w-1/6 min-w-16">
+        <img src="/static/Miguel.png" alt="Imagen Miguel" class="w-full rounded-full border-transparent">
+        <span class="text-white text-base">Miguel Arroyo</span>
+        <p>222214253</p>
+      </div>
+      <div class="w-1/6 min-w-16">
+        <img src="/static/Francisco.png" alt="Imagen Francisco" class="w-full rounded-full border-transparent">
+        <span class="text-white text-base">Francisco Perez</span>
+        <p>222214463</p>
+      </div>
+      <div class="w-1/6 min-w-16">
+        <img src="/static/Allison.png" alt="Imagen Allison" class="w-full rounded-full border-transparent">
+        <span class="text-white text-base">Allison Navalles</span>
+        <p>222204136</p>
+      </div>
     </div>
+    <div class="mt-4 text-center text-sm font-medium text-gray-400">
+      <span>© 2023 Academia Unbound All Rights Reserved.</span>
+    </div>
+    <script src="/static/base.js"></script>
+    {% block footer %}
+    {% endblock %}
   </footer>
   </html>

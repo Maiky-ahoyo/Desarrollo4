@@ -5,7 +5,7 @@ def procesa_csv(nombre_archivo:str)->list:
     '''
     Carga archivo csv y regresa una lista con diccionarios de revistas
     '''
-    with open(nombre_archivo,'r',encoding="utf-8") as archivo:
+    with open(nombre_archivo, 'r', encoding="utf-8") as archivo:
         lista = list(csv.DictReader(archivo, delimiter=';'))
     return lista
 
@@ -100,6 +100,23 @@ def crea_diccionario_qs(revistas:list)->dict:
             d[key] = [revista]
     return d
 
+def crea_dict_palabras_clave(revistas:list, inicial:str)->dict:
+    ''' Crea diccionario de palabras clave a partir de 
+        la lista de revistas
+    '''
+    d = {}
+    for revista in revistas:
+        key = revista["Title"]
+        key = key.split(" ")
+        for palabra in key:
+            palabra = palabra.upper()
+            if palabra.startswith(inicial):
+                if palabra in d:
+                    d[palabra].append(revista)
+                else:
+                    d[palabra] = [revista]
+    return d
+
 def busqueda_palabra(palabras:str, revistas:list)->list:
     ''' Crea una lista de revistas 
         a partir de la lista de revistas 
@@ -131,16 +148,23 @@ def busqueda_rango_sjr(sjr1:float, sjr2:float, revistas:list)->list:
         sjr = float(revista["SJR"])
         if sjr >= sjr_menor and sjr <= sjr_mayor:
             l.append(revista)
-    return l  
+    return l
+
+def paginacion(lista:list, pagina:int)->list:
+    ''' Crea una lista de revistas 
+        a partir de la lista de revistas 
+        y un numero de pagina
+    '''
+    inicio = (pagina - 1) * 50
+    fin = inicio + 50
+    return lista[inicio:fin]
 
 if __name__ == "__main__":
     os.system('cls')
-    revistas = procesa_csv('revistas50.csv')
+    revistas = procesa_csv('revistas.csv')
     areas = crea_dict_areas(revistas)
     categorias = crea_dict_categorias(revistas)
     catalogos = crea_dict_catalogos(revistas)
     editoriales = crea_dict_editoriales(revistas)
     iniciales = crea_diccionario_iniciales(revistas)
     qs = crea_diccionario_qs(revistas)
-    revistas_filtradas = busqueda_palabra("cancer", revistas)
-    revistas_por_sjr = busqueda_rango_sjr(20, 30, revistas)
