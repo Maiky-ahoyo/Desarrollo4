@@ -155,7 +155,7 @@ def paginacion(lista:list, pagina:int)->list:
         a partir de la lista de revistas 
         y un numero de pagina
     '''
-    inicio = (pagina - 1) * 50
+    inicio = (int(pagina) - 1) * 50
     fin = inicio + 50
     return lista[inicio:fin]
 
@@ -168,3 +168,5 @@ if __name__ == "__main__":
     editoriales = crea_dict_editoriales(revistas)
     iniciales = crea_diccionario_iniciales(revistas)
     qs = crea_diccionario_qs(revistas)
+    total_paginas = len(revistas) // 50
+    print(total_paginas)

@@ -18,7 +18,7 @@ const homeMobile = document.getElementById('home-mobile');
 const magazinesMobile = document.getElementById('magazines-mobile');
 const areasMobile = document.getElementById('areas-mobile');
 const categoriesMobile = document.getElementById('categories-mobile');
-const page = window.location.pathname;
+const page = window.location.pathname.split('/')[1];
 console.log(page);
 
 search.addEventListener('click', function() {
@@ -57,7 +57,7 @@ menuButton.addEventListener('click', function() {
 });
 
 window.addEventListener('load', function() {
-    if (page == '/') {
+    if (page == '') {
         home.style.backgroundColor = '#141f3a';
         homeMobile.style.backgroundColor = '#141f3a';
     } else {
@@ -66,7 +66,7 @@ window.addEventListener('load', function() {
         homeMobile.style.backgroundColor = 'transparent';
         hover(homeMobile);
     }
-    if (page == '/magazines') {
+    if (page == 'magazines') {
         magazines.style.backgroundColor = '#141f3a';
         magazinesMobile.style.backgroundColor = '#141f3a';
     } else {
@@ -75,7 +75,7 @@ window.addEventListener('load', function() {
         magazinesMobile.style.backgroundColor = 'transparent';
         hover(magazinesMobile);
     }
-    if (page == '/areas') {
+    if (page == 'areas') {
         areas.style.backgroundColor = '#141f3a';
         areasMobile.style.backgroundColor = '#141f3a';
     } else {
@@ -84,7 +84,7 @@ window.addEventListener('load', function() {
         areasMobile.style.backgroundColor = 'transparent';
         hover(areasMobile);
     }
-    if (page == '/categories') {
+    if (page == 'categories') {
         categories.style.backgroundColor = '#141f3a';
         categoriesMobile.style.backgroundColor = '#141f3a';
     } else {
