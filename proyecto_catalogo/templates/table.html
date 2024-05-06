@@ -23,8 +23,8 @@
     <div class="flex justify-between bg-[#141f3a] text-white rounded-b-xl w-11/12 mx-auto p-3 items-center border-t-gray-300 border-t-2">
         <span>Showing {{first_magazine}} to {{last_magazine}} of {{total_magazines}}</span>
         <div class="flex">
-            {% if page > 0 %}
-            <a href="/magazines/{{prev_page}}" class="relative inline-flex items-center bg-white hover:bg-[#294690] border-gray-300 border text-slate-950 hover:text-white rounded-l-md px-2 py-2 hover:shadow-lg transition duration-500">
+            {% if page > 1 %}
+            <a href="/magazines/page={{prev_page}}" class="relative inline-flex items-center bg-white hover:bg-[#294690] border-gray-300 border text-slate-950 hover:text-white rounded-l-md px-2 py-2 hover:shadow-lg transition duration-500">
                 <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd" />
                 </svg>
@@ -39,9 +39,9 @@
             {% for pg in first_pages %}
             {% if not pg >= last_pages[0]%}
             {% if pg == page %}
-            <a href="/magazines/{{pg}}" class="relative inline-flex items-center bg-[#294690] border-gray-300 border text-white px-3 py-1 hover:shadow-lg transition duration-500">{{pg}}</a>
+            <a href="/magazines/page={{pg}}" class="relative inline-flex items-center bg-[#294690] border-gray-300 border text-white px-3 py-1 hover:shadow-lg transition duration-500">{{pg}}</a>
             {% else %}
-            <a href="/magazines/{{pg}}" class="relative inline-flex items-center bg-white hover:bg-[#294690] border-gray-300 border text-slate-950 hover:text-white px-3 py-1 hover:shadow-lg transition duration-500">{{pg}}</a>
+            <a href="/magazines/page={{pg}}" class="relative inline-flex items-center bg-white hover:bg-[#294690] border-gray-300 border text-slate-950 hover:text-white px-3 py-1 hover:shadow-lg transition duration-500">{{pg}}</a>
             {% endif %}
             {% endif %}
             {% endfor %}
@@ -50,13 +50,13 @@
             {% endif %}
             {% for pg in last_pages %}
             {% if pg == page %}
-            <a href="/magazines/{{pg}}" class="relative inline-flex items-center bg-[#294690] border-gray-300 border text-white px-3 py-1 hover:shadow-lg transition duration-500">{{pg}}</a>
+            <a href="/magazines/page={{pg}}" class="relative inline-flex items-center bg-[#294690] border-gray-300 border text-white px-3 py-1 hover:shadow-lg transition duration-500">{{pg}}</a>
             {% else %}
-            <a href="/magazines/{{pg}}" class="relative inline-flex items-center bg-white hover:bg-[#294690] border-gray-300 border text-slate-950 hover:text-white px-3 py-1 hover:shadow-lg transition duration-500">{{pg}}</a>
+            <a href="/magazines/page={{pg}}" class="relative inline-flex items-center bg-white hover:bg-[#294690] border-gray-300 border text-slate-950 hover:text-white px-3 py-1 hover:shadow-lg transition duration-500">{{pg}}</a>
             {% endif %}
             {% endfor %}
             {% if page < last_pages[2] %}
-            <a href="/magazines/{{next_page}}" class="relative inline-flex items-center bg-white hover:bg-[#294690] border-gray-300 border text-slate-950 hover:text-white rounded-r-md px-2 py-2 hover:shadow-lg transition duration-500">
+            <a href="/magazines/page={{next_page}}" class="relative inline-flex items-center bg-white hover:bg-[#294690] border-gray-300 border text-slate-950 hover:text-white rounded-r-md px-2 py-2 hover:shadow-lg transition duration-500">
                 <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
                 </svg>

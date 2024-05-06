@@ -25,7 +25,7 @@ qs_revistas = crea_diccionario_qs(revistas)
 def index():
     return render_template("index.html", alphabet=abecedario, qs=qs_revistas.keys(), catalogues=catalogos_revistas.keys())
 
-@app.route("/magazines/<pagina>")
+@app.route("/magazines/page=<pagina>")
 def magazines(pagina:str):
     pagina = int(pagina)
     total_revistas = len(revistas)
