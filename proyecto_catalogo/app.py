@@ -10,7 +10,7 @@ from funciones import crea_dict_palabras_clave
 
 app = Flask(__name__)
 abecedario = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z']
-archivo_revistas = "revistas.csv"
+archivo_revistas = "revistas50.csv"
 revistas = procesa_csv(archivo_revistas)
 areas_revistas = crea_dict_areas(revistas)
 categorias_revistas = crea_dict_categorias(revistas)
@@ -24,6 +24,8 @@ def index():
     return render_template("index.html", alphabet=abecedario, qs=qs_revistas.keys(), catalogues=catalogos_revistas.keys())
 
 @app.route("/magazines")
+def magazines():
+    return render_template("table.html", magazines=revistas)
 
 @app.route("/areas")
 def areas():

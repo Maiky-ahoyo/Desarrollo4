@@ -3,7 +3,23 @@
 {% block title %}{% endblock %}
 {% endblock %}
 {% block body %}
-<table>
-    
-</table>
+<div class="w-full py-6 bg-[#C0CEE3]">
+    <table class="w-11/12 mx-auto mt-4 text-center">
+        <tr class="flex justify-between w-full bg-[#141f3a] text-white text-lg py-3 rounded-t-xl">
+            <th class="w-1/4">Title</th>
+            <th class="w-1/4">Type</th>
+            <th class="w-1/4">SJR</th>
+            <th class="w-1/4">H Index</th>
+        </tr>
+        {% for magazine in magazines %}
+        <tr class="flex justify-between w-full bg-[#d6d6d6] p-2 items-center">
+            <td class="w-1/4">{{magazine['Title']}}</td>
+            <td class="w-1/4">{{magazine['Catalogue']}}</td>
+            <td class="w-1/4">{{magazine['SJR']}}</td>
+            <td class="w-1/4">{{magazine['H Index']}}</td>
+        </tr>
+        {% endfor %}
+    </table>
+    <div class="bg-[#d6d6d6] rounded-b-xl w-11/12 h-3 mx-auto"></div>
+</div>
 {% endblock %}
