@@ -104,32 +104,18 @@ def crea_dict_palabras_clave(revistas:list, inicial:str)->dict:
     ''' Crea diccionario de palabras clave a partir de 
         la lista de revistas
     '''
+    inicial = inicial.upper()
     d = {}
     for revista in revistas:
         key = revista["Title"]
         key = key.split(" ")
         for palabra in key:
-            palabra = palabra.upper()
-            if palabra.startswith(inicial):
+            if palabra.upper().startswith(inicial):
                 if palabra in d:
                     d[palabra].append(revista)
                 else:
                     d[palabra] = [revista]
     return d
-
-def busqueda_palabra(palabras:str, revistas:list)->list:
-    ''' Crea una lista de revistas 
-        a partir de la lista de revistas 
-        y una/s palabras clave
-    '''
-    l = []
-    revistas_sorted = sorted(revistas, key=lambda x: x["Title"],reverse=False)
-    for revista in revistas_sorted:
-        palabras = palabras.upper()
-        titulo = revista["Title"].upper()
-        if palabras in titulo:
-            l.append(revista)
-    return l        
 
 def busqueda_rango_sjr(sjr1:float, sjr2:float, revistas:list)->list:
     ''' Crea una lista de revistas 
@@ -150,6 +136,8 @@ def busqueda_rango_sjr(sjr1:float, sjr2:float, revistas:list)->list:
             l.append(revista)
     return l
 
+
+
 def paginacion(lista:list, pagina:int)->list:
     ''' Crea una lista de revistas 
         a partir de la lista de revistas 
@@ -167,6 +155,5 @@ if __name__ == "__main__":
     catalogos = crea_dict_catalogos(revistas)
     editoriales = crea_dict_editoriales(revistas)
     iniciales = crea_diccionario_iniciales(revistas)
-    qs = crea_diccionario_qs(revistas)
+    qs = crea_diccionario_qs(revistas).keys()
     total_paginas = len(revistas) // 50
-    print(total_paginas)

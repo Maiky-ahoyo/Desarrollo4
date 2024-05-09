@@ -23,7 +23,9 @@ console.log(page);
 
 search.addEventListener('click', function() {
     let inputValue = input.value;
+    window.location.href = '/initial/' + inputValue;
 });
+
 
 searchMobile.addEventListener('click', function() {
     let inputValue = inputMobile.value;
@@ -33,14 +35,14 @@ searchMobile.addEventListener('click', function() {
 input.addEventListener('keypress', function(e) {
     if (e.key == 'Enter') {
         let inputValue = input.value;
-        console.log(inputValue);
+        window.location.href = '/initial/' + inputValue;
     }
 });
 
 inputMobile.addEventListener('keypress', function(e) {
     if (e.key == 'Enter') {
         let inputValue = inputMobile.value;
-        console.log(inputValue);
+        window.location.href = '/initial/' + inputValue;
     }
 });
 

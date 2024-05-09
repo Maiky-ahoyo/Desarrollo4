@@ -21,7 +21,7 @@
         </div>
         <div class="grid gap-2 grid-cols-4 w-full bg-[#F1F1F1] p-2 rounded-md items-center">
             {% for catalogue in catalogues %}
-            <a href="/catalogues/{{catalogue}}" class="py-2 bg-[#294690] hover:bg-[#1f3363] text-white rounded-3xl hover:shadow-lg transition duration-500">{{catalogue}}</a>
+            <a href="/magazines/{{catalogue}}/page=1" class="py-2 bg-[#294690] hover:bg-[#1f3363] text-white rounded-3xl hover:shadow-lg transition duration-500">{{catalogue}}</a>
             {% endfor %}
         </div>
     </div>
@@ -31,7 +31,7 @@
         </div>
         <div class="grid gap-2 grid-cols-5 w-full bg-[#F1F1F1] p-2 rounded-md">
             {% for q in qs %}
-            <a href="/qs/{{q}}" class="py-2 bg-[#294690] hover:bg-[#1f3363] text-white rounded-3xl hover:shadow-lg transition duration-500">{{q}}</a>
+            <a href="/magazines/{{q}}/page=1" class="py-2 bg-[#294690] hover:bg-[#1f3363] text-white rounded-3xl hover:shadow-lg transition duration-500">{{q}}</a>
             {% endfor %}
         </div>
     </div>

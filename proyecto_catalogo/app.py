@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, url_for
 from funciones import procesa_csv
 from funciones import crea_dict_areas
 from funciones import crea_dict_categorias
@@ -20,25 +20,61 @@ catalogos_revistas = crea_dict_catalogos(revistas)
 editoriales_revistas = crea_dict_editoriales(revistas)
 iniciales_revistas = crea_diccionario_iniciales(revistas)
 qs_revistas = crea_diccionario_qs(revistas)
+catalogos = crea_dict_catalogos(revistas).keys()
+qs = crea_diccionario_qs(revistas).keys()
 
 @app.route("/")
 def index():
     return render_template("index.html", alphabet=abecedario, qs=qs_revistas.keys(), catalogues=catalogos_revistas.keys())
 
+@app.route("/magazine/<titulo>")
+def magazine(titulo:str):
+    return render_template()
+
 @app.route("/magazines/page=<pagina>")
 def magazines(pagina:str):
+    ruta = "/magazines"
     pagina = int(pagina)
     total_revistas = len(revistas)
     revistas_paginadas = paginacion(revistas, pagina)
     primer_revista = ((pagina - 1) * 50) + 1
-    ultima_revista = primer_revista + 50
+    ultima_revista = primer_revista + 49
     if ultima_revista > total_revistas:
         ultima_revista = total_revistas
     paginas_iniciales = [pagina, pagina+1, pagina+2]
     paginas_finales = [(len(revistas) // 50) - 1,(len(revistas) // 50),(len(revistas) // 50) + 1]
     pagina_anterior = pagina - 1
     pagina_siguiente = pagina + 1
-    return render_template("table.html", page=pagina, first_magazine=primer_revista, 
+    return render_template("table.html", route=ruta, page=pagina, first_magazine=primer_revista, 
+                           last_magazine=ultima_revista, first_pages=paginas_iniciales, 
+                           last_pages=paginas_finales, total_magazines=total_revistas,
+                           prev_page=pagina_anterior, next_page=pagina_siguiente, 
+                           magazines=revistas_paginadas)
+
+@app.route("/magazines/<sub>/page=<pagina>")
+def catalogue(sub:str, pagina:str):
+    for q in qs:
+        if q in sub:
+            revistas = qs_revistas[sub]
+            texto = f"Magazines from the Q: {sub}"
+    for catalogo in catalogos:
+        if catalogo in sub:
+            revistas = catalogos_revistas[sub]
+            texto = f"Magazines from the catalogue: {sub}"
+    ruta = f"/magazines/{sub}"
+    pagina = int(pagina)
+    total_revistas = len(revistas)
+    revistas_paginadas = paginacion(revistas, pagina)
+    primer_revista = ((pagina - 1) * 50) + 1
+    ultima_revista = primer_revista + 49
+    if ultima_revista > total_revistas:
+        ultima_revista = total_revistas
+    paginas_iniciales = [pagina, pagina+1, pagina+2]
+    paginas_finales = [(len(revistas) // 50) - 1,(len(revistas) // 50),(len(revistas) // 50) + 1]
+    pagina_anterior = pagina - 1
+    pagina_siguiente = pagina + 1
+    return render_template("table.html", route=ruta, page=pagina, 
+                           text=texto, first_magazine=primer_revista, 
                            last_magazine=ultima_revista, first_pages=paginas_iniciales, 
                            last_pages=paginas_finales, total_magazines=total_revistas,
                            prev_page=pagina_anterior, next_page=pagina_siguiente, 
@@ -48,13 +84,83 @@ def magazines(pagina:str):
 def areas():
     return render_template("areas.html", areas=areas_revistas.keys())
 
+@app.route("/areas/<area>/page=<pagina>")
+def area(area:str, pagina:str):
+    revistas = areas_revistas[area]
+    texto = f"Magazines from the area: {area}"
+    ruta = f"/areas/{area}"
+    pagina = int(pagina)
+    total_revistas = len(revistas)
+    revistas_paginadas = paginacion(revistas, pagina)
+    primer_revista = ((pagina - 1) * 50) + 1
+    ultima_revista = primer_revista + 49
+    if ultima_revista > total_revistas:
+        ultima_revista = total_revistas
+    paginas_iniciales = [pagina, pagina+1, pagina+2]
+    paginas_finales = [(len(revistas) // 50) - 1,(len(revistas) // 50),(len(revistas) // 50) + 1]
+    pagina_anterior = pagina - 1
+    pagina_siguiente = pagina + 1
+    return render_template("table.html", route=ruta, page=pagina, 
+                           text=texto, first_magazine=primer_revista, 
+                           last_magazine=ultima_revista, first_pages=paginas_iniciales, 
+                           last_pages=paginas_finales, total_magazines=total_revistas,
+                           prev_page=pagina_anterior, next_page=pagina_siguiente, 
+                           magazines=revistas_paginadas)
+
 @app.route("/categories")
 def categories():
     return render_template("categories.html", categories=categorias_revistas.keys())
 
-@app.route("/initial/<inicial>")
-def inicial(inicial:str):
-    return render_template("inicial.html", initial=inicial, keywords=crea_dict_palabras_clave(revistas, inicial))
+@app.route("/categories/<category>/page=<pagina>")
+def category(category:str, pagina:str):
+    revistas = categorias_revistas[category]
+    texto = f"Magazines from the category: {category}"
+    ruta = f"/categories/{category}"
+    pagina = int(pagina)
+    total_revistas = len(revistas)
+    revistas_paginadas = paginacion(revistas, pagina)
+    primer_revista = ((pagina - 1) * 50) + 1
+    ultima_revista = primer_revista + 49
+    if ultima_revista > total_revistas:
+        ultima_revista = total_revistas
+    paginas_iniciales = [pagina, pagina+1, pagina+2]
+    paginas_finales = [(len(revistas) // 50) - 1,(len(revistas) // 50),(len(revistas) // 50) + 1]
+    pagina_anterior = pagina - 1
+    pagina_siguiente = pagina + 1
+    return render_template("table.html", route=ruta, page=pagina, 
+                           text=texto, first_magazine=primer_revista, 
+                           last_magazine=ultima_revista, first_pages=paginas_iniciales, 
+                           last_pages=paginas_finales, total_magazines=total_revistas,
+                           prev_page=pagina_anterior, next_page=pagina_siguiente, 
+                           magazines=revistas_paginadas)
 
+@app.route("/initial/<initial>")
+def initial(initial:str):
+    return render_template("initial.html", initial=initial, keywords=crea_dict_palabras_clave(revistas, initial))
+
+@app.route("/initial/<initial>/<word>/page=<pagina>")
+def word(initial:str, word:str, pagina:str):
+    #revistas = crea_dict_palabras_clave(revistas, initial)
+    texto = f"Magazines containing the word: {word}"
+    ruta = f"/initial/{initial}/{word}"
+    pagina = int(pagina)
+    total_revistas = len(revistas)
+    revistas_paginadas = paginacion(revistas, pagina)
+    primer_revista = ((pagina - 1) * 50) + 1
+    ultima_revista = primer_revista + 49
+    if ultima_revista > total_revistas:
+        ultima_revista = total_revistas
+    paginas_iniciales = [pagina, pagina+1, pagina+2]
+    paginas_finales = [(len(revistas) // 50) - 1,(len(revistas) // 50),(len(revistas) // 50) + 1]
+    pagina_anterior = pagina - 1
+    pagina_siguiente = pagina + 1
+    return render_template("table.html", route=ruta, page=pagina, 
+                           text=texto, first_magazine=primer_revista, 
+                           last_magazine=ultima_revista, first_pages=paginas_iniciales, 
+                           last_pages=paginas_finales, total_magazines=total_revistas,
+                           prev_page=pagina_anterior, next_page=pagina_siguiente, 
+                           magazines=revistas_paginadas)
 if __name__ == "__main__":
     app.run(debug=True)
+
+    

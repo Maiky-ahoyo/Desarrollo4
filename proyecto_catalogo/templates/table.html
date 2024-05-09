@@ -4,19 +4,24 @@
 {% endblock %}
 {% block body %}
 <div class="w-full py-6 bg-[#C0CEE3]">
+    {% if not route == '/magazines'%}
+    <h1 class="w-11/12 m-auto bg-[#141f3a] text-white text-center text-2xl py-3 rounded-xl">{{text}}</h1>
+    {% endif %}
     <table class="w-11/12 mx-auto mt-4 text-center">
         <tr class="flex justify-between w-full bg-[#141f3a] text-white text-lg py-3 rounded-t-xl">
-            <th class="w-2/5">Title</th>
-            <th class="w-1/5">Type</th>
-            <th class="w-1/5">SJR</th>
-            <th class="w-1/5">H Index</th>
+            <th class="w-2/6">Title</th>
+            <th class="w-1/6">Type</th>
+            <th class="w-1/6">SJR</th>
+            <th class="w-1/6">H Index</th>
+            <th class="w-1/6">Q</th>
         </tr>
         {% for magazine in magazines %}
         <tr class="flex justify-between w-full bg-[#F1F1F1] p-2 items-center border-t-gray-300 border-t-2">
-            <td class="w-2/5"><a href="" class="text-indigo-950 font-semibold underline">{{magazine['Title']}}</a></td>
-            <td class="w-1/5"><a href="" class="text-indigo-950 font-semibold underline">{{magazine['Catalogue']}}</a></td>
-            <td class="w-1/5">{{magazine['SJR']}}</td>
-            <td class="w-1/5">{{magazine['H Index']}}</td>
+            <td class="w-2/6"><a href="/magazines/{{magazine['Title']}}" target="_blank" class="text-indigo-950 font-semibold underline">{{magazine['Title']}}</a></td>
+            <td class="w-1/6"><a href="/magazines/{{magazine['Catalogue']}}/page=1" class="text-indigo-950 font-semibold underline">{{magazine['Catalogue']}}</a></td>
+            <td class="w-1/6">{{magazine['SJR']}}</td>
+            <td class="w-1/6">{{magazine['H Index']}}</td>
+            <td class="w-1/6">{{magazine['Q']}}</td>
         </tr>
         {% endfor %}
     </table>
@@ -24,7 +29,7 @@
         <span>Showing {{first_magazine}} to {{last_magazine}} of {{total_magazines}}</span>
         <div class="flex">
             {% if page > 1 %}
-            <a href="/magazines/page={{prev_page}}" class="relative inline-flex items-center bg-white hover:bg-[#294690] border-gray-300 border text-slate-950 hover:text-white rounded-l-md px-2 py-2 hover:shadow-lg transition duration-500">
+            <a href="{{route}}/page={{prev_page}}" class="relative inline-flex items-center bg-white hover:bg-[#294690] border-gray-300 border text-slate-950 hover:text-white rounded-l-md px-2 py-2 hover:shadow-lg transition duration-500">
                 <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clip-rule="evenodd" />
                 </svg>
@@ -39,9 +44,9 @@
             {% for pg in first_pages %}
             {% if not pg >= last_pages[0]%}
             {% if pg == page %}
-            <a href="/magazines/page={{pg}}" class="relative inline-flex items-center bg-[#294690] border-gray-300 border text-white px-3 py-1 hover:shadow-lg transition duration-500">{{pg}}</a>
+            <a href="{{route}}/page={{pg}}" class="relative inline-flex items-center bg-[#294690] border-gray-300 border text-white px-3 py-1 hover:shadow-lg transition duration-500">{{pg}}</a>
             {% else %}
-            <a href="/magazines/page={{pg}}" class="relative inline-flex items-center bg-white hover:bg-[#294690] border-gray-300 border text-slate-950 hover:text-white px-3 py-1 hover:shadow-lg transition duration-500">{{pg}}</a>
+            <a href="{{route}}/page={{pg}}" class="relative inline-flex items-center bg-white hover:bg-[#294690] border-gray-300 border text-slate-950 hover:text-white px-3 py-1 hover:shadow-lg transition duration-500">{{pg}}</a>
             {% endif %}
             {% endif %}
             {% endfor %}
@@ -50,13 +55,13 @@
             {% endif %}
             {% for pg in last_pages %}
             {% if pg == page %}
-            <a href="/magazines/page={{pg}}" class="relative inline-flex items-center bg-[#294690] border-gray-300 border text-white px-3 py-1 hover:shadow-lg transition duration-500">{{pg}}</a>
+            <a href="{{route}}/page={{pg}}" class="relative inline-flex items-center bg-[#294690] border-gray-300 border text-white px-3 py-1 hover:shadow-lg transition duration-500">{{pg}}</a>
             {% else %}
-            <a href="/magazines/page={{pg}}" class="relative inline-flex items-center bg-white hover:bg-[#294690] border-gray-300 border text-slate-950 hover:text-white px-3 py-1 hover:shadow-lg transition duration-500">{{pg}}</a>
+            <a href="{{route}}/page={{pg}}" class="relative inline-flex items-center bg-white hover:bg-[#294690] border-gray-300 border text-slate-950 hover:text-white px-3 py-1 hover:shadow-lg transition duration-500">{{pg}}</a>
             {% endif %}
             {% endfor %}
             {% if page < last_pages[2] %}
-            <a href="/magazines/page={{next_page}}" class="relative inline-flex items-center bg-white hover:bg-[#294690] border-gray-300 border text-slate-950 hover:text-white rounded-r-md px-2 py-2 hover:shadow-lg transition duration-500">
+            <a href="{{route}}/page={{next_page}}" class="relative inline-flex items-center bg-white hover:bg-[#294690] border-gray-300 border text-slate-950 hover:text-white rounded-r-md px-2 py-2 hover:shadow-lg transition duration-500">
                 <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                     <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
                 </svg>
