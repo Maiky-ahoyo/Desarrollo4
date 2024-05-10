@@ -19,6 +19,8 @@ const magazinesMobile = document.getElementById('magazines-mobile');
 const areasMobile = document.getElementById('areas-mobile');
 const categoriesMobile = document.getElementById('categories-mobile');
 const page = window.location.pathname.split('/')[1];
+const footer = document.getElementById('footer');
+const body = document.getElementById('body');
 console.log(page);
 
 search.addEventListener('click', function() {
@@ -122,6 +124,11 @@ window.addEventListener('load', function() {
         navbar.style.justifyContent = 'center';
         index.style.display = 'none';
         searchBar.style.display = 'none';
+    }
+    if (body.offsetHeight < 450) {
+        footer.style.position = 'fixed';
+        footer.style.bottom = '0';
+        body.style.height = '450px';
     }
 });
 

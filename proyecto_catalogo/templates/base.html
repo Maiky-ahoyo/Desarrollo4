@@ -77,10 +77,12 @@
         </div>
       </nav>
     </header>
-    {% block body %}
-    {% endblock %}
+    <div id="body" class="w-full py-6 bg-[#C0CEE3]">
+      {% block body %}
+      {% endblock %}
+    </div>
   </body>
-  <footer class="bg-[#20305A] p-4">
+  <footer id="footer" class="bg-[#20305A] p-4">
     <div class="w-10/12 flex flex-wrap items-center text-center justify-between text-sm font-medium text-gray-400 mx-auto">
       <div class="w-1/6 min-w-16">
         <img src="/static/Miguel.png" alt="Imagen Miguel" class="w-full rounded-full border-transparent">

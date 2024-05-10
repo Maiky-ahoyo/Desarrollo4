@@ -4,36 +4,34 @@
 {% endblock %}
 {% endblock %}
 {% block body %}
-<div class="w-full py-6 bg-[#C0CEE3]">
-    <div class="w-11/12 mx-auto my-4 text-center">
-        <div class="w-full bg-[#141f3a] text-white font-semibold rounded-md py-2">
-            <h2>Word Initials</h2>
-        </div>
-        <div class="grid gap-2 grid-cols-10 w-full bg-[#F1F1F1] p-2 rounded-md items-center">
-            {% for letter in alphabet %}
-            <a href="/initial/{{letter}}" class="py-2 bg-[#294690] hover:bg-[#1f3363] text-white rounded-3xl hover:shadow-lg transition duration-500">{{letter}}</a>
-            {% endfor %}
-        </div>
+<div class="w-11/12 mx-auto my-4 text-center">
+    <div class="w-full bg-[#141f3a] text-white font-semibold rounded-md py-2">
+        <h2>Word Initials</h2>
     </div>
-    <div class="w-11/12 mx-auto my-4 text-center">
-        <div class="w-full bg-[#141f3a] text-white font-semibold rounded-md py-2">
-            <h2>Magazine Catalogues</h2>
-        </div>
-        <div class="grid gap-2 grid-cols-4 w-full bg-[#F1F1F1] p-2 rounded-md items-center">
-            {% for catalogue in catalogues %}
-            <a href="/magazines/{{catalogue}}/page=1" class="py-2 bg-[#294690] hover:bg-[#1f3363] text-white rounded-3xl hover:shadow-lg transition duration-500">{{catalogue}}</a>
-            {% endfor %}
-        </div>
+    <div class="grid gap-2 grid-cols-10 w-full bg-[#F1F1F1] p-2 rounded-md items-center">
+        {% for letter in alphabet %}
+        <a href="/initial/{{letter}}" class="py-2 bg-[#294690] hover:bg-[#1f3363] text-white rounded-3xl hover:shadow-lg transition duration-500">{{letter}}</a>
+        {% endfor %}
     </div>
-    <div class="w-11/12 mx-auto my-4 text-center">
-        <div class="w-full bg-[#141f3a] text-white font-semibold rounded-md py-2">
-            <h2>Magazine Q's</h2>
-        </div>
-        <div class="grid gap-2 grid-cols-5 w-full bg-[#F1F1F1] p-2 rounded-md">
-            {% for q in qs %}
-            <a href="/magazines/{{q}}/page=1" class="py-2 bg-[#294690] hover:bg-[#1f3363] text-white rounded-3xl hover:shadow-lg transition duration-500">{{q}}</a>
-            {% endfor %}
-        </div>
+</div>
+<div class="w-11/12 mx-auto my-4 text-center">
+    <div class="w-full bg-[#141f3a] text-white font-semibold rounded-md py-2">
+        <h2>Magazine Catalogues</h2>
+    </div>
+    <div class="grid gap-2 grid-cols-4 w-full bg-[#F1F1F1] p-2 rounded-md items-center">
+        {% for catalogue in catalogues %}
+        <a href="/magazines/{{catalogue}}/page=1" class="py-2 bg-[#294690] hover:bg-[#1f3363] text-white rounded-3xl hover:shadow-lg transition duration-500">{{catalogue}}</a>
+        {% endfor %}
+    </div>
+</div>
+<div class="w-11/12 mx-auto my-4 text-center">
+    <div class="w-full bg-[#141f3a] text-white font-semibold rounded-md py-2">
+        <h2>Magazine Q's</h2>
+    </div>
+    <div class="grid gap-2 grid-cols-5 w-full bg-[#F1F1F1] p-2 rounded-md">
+        {% for q in qs %}
+        <a href="/magazines/{{q}}/page=1" class="py-2 bg-[#294690] hover:bg-[#1f3363] text-white rounded-3xl hover:shadow-lg transition duration-500">{{q}}</a>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}

@@ -3,8 +3,7 @@
 {% block title %}{% endblock %}
 {% endblock %}
 {% block body %}
-<div class="w-full py-6 bg-[#C0CEE3]">
-    {% if not route == '/magazines'%}
+{% if not route == '/magazines'%}
     <h1 class="w-11/12 m-auto bg-[#141f3a] text-white text-center text-2xl py-3 rounded-xl">{{text}}</h1>
     {% endif %}
     <table class="w-11/12 mx-auto mt-4 text-center">
@@ -25,7 +24,7 @@
         </tr>
         {% endfor %}
     </table>
-    <div class="flex justify-between bg-[#141f3a] text-white rounded-b-xl w-11/12 mx-auto p-3 items-center border-t-gray-300 border-t-2">
+    <div class="flex justify-between bg-[#141f3a] text-white rounded-b-xl w-11/12 mx-auto p-3 mb-4 items-center border-t-gray-300 border-t-2">
         <span>Showing {{first_magazine}} to {{last_magazine}} of {{total_magazines}}</span>
         <div class="flex">
             {% if page > 1 %}
@@ -77,5 +76,4 @@
             {% endif %}
         </div>
     </div>
-</div>
 {% endblock %}
