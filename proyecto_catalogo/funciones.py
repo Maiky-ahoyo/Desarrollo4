@@ -100,43 +100,33 @@ def crea_diccionario_qs(revistas:list)->dict:
             d[key] = [revista]
     return d
 
-def crea_dict_palabras_clave(revistas:list, inicial:str)->dict:
-    ''' Crea diccionario de palabras clave a partir de 
+def crea_lista_palabras(revistas:list, inicial:str)->list:
+    ''' Crea lista de palabras clave a partir de 
         la lista de revistas
     '''
     inicial = inicial.upper()
-    d = {}
+    l = []
     for revista in revistas:
         key = revista["Title"]
         key = key.split(" ")
         for palabra in key:
             if palabra.upper().startswith(inicial):
-                if palabra in d:
-                    d[palabra].append(revista)
-                else:
-                    d[palabra] = [revista]
-    return d
-
-def busqueda_rango_sjr(sjr1:float, sjr2:float, revistas:list)->list:
-    ''' Crea una lista de revistas 
-        a partir de la lista de revistas 
-        y un rango de sjr
-    '''
-    l = []
-    revistas_sorted = sorted(revistas, key=lambda x: x["SJR"],reverse=False)
-    if sjr1 > sjr2:
-        sjr_mayor = sjr1
-        sjr_menor = sjr2
-    else:
-        sjr_mayor = sjr2 + 0.001
-        sjr_menor = sjr1
-    for revista in revistas_sorted:
-        sjr = float(revista["SJR"])
-        if sjr >= sjr_menor and sjr <= sjr_mayor:
-            l.append(revista)
+                if palabra not in l:
+                    l.append(palabra)
     return l
 
-
+def crea_lista_por_palabra(revistas:list, palabra:str)->list:
+    ''' Crea diccionario de palabras clave a partir de 
+        la lista de revistas
+    '''
+    l = []
+    for revista in revistas:
+        key = revista["Title"]
+        key = key.split(" ")
+        for pal in key:
+            if pal.upper() == palabra.upper():
+                l.append(revista)
+    return l
 
 def paginacion(lista:list, pagina:int)->list:
     ''' Crea una lista de revistas 
@@ -157,3 +147,7 @@ if __name__ == "__main__":
     iniciales = crea_diccionario_iniciales(revistas)
     qs = crea_diccionario_qs(revistas).keys()
     total_paginas = len(revistas) // 50
+    palabras = crea_lista_palabras(revistas, "and")
+    revistas_palabra = crea_lista_por_palabra(revistas, "Franzosische")
+    revis = paginacion(revistas_palabra, 1)
+    print(revis)

@@ -6,7 +6,8 @@ from funciones import crea_dict_catalogos
 from funciones import crea_dict_editoriales
 from funciones import crea_diccionario_iniciales
 from funciones import crea_diccionario_qs
-from funciones import crea_dict_palabras_clave
+from funciones import crea_lista_por_palabra
+from funciones import crea_lista_palabras
 from funciones import paginacion
 
 app = Flask(__name__)
@@ -136,22 +137,22 @@ def category(category:str, pagina:str):
 
 @app.route("/initial/<initial>")
 def initial(initial:str):
-    return render_template("initial.html", initial=initial, keywords=crea_dict_palabras_clave(revistas, initial))
+    return render_template("initial.html", initial=initial, keywords=crea_lista_palabras(revistas, initial))
 
 @app.route("/initial/<initial>/<word>/page=<pagina>")
 def word(initial:str, word:str, pagina:str):
-    #revistas = crea_dict_palabras_clave(revistas, initial)
+    new_revistas = crea_lista_por_palabra(revistas, word)
     texto = f"Magazines containing the word: {word}"
     ruta = f"/initial/{initial}/{word}"
     pagina = int(pagina)
-    total_revistas = len(revistas)
-    revistas_paginadas = paginacion(revistas, pagina)
+    total_revistas = len(new_revistas)
+    revistas_paginadas = paginacion(new_revistas, pagina)
     primer_revista = ((pagina - 1) * 50) + 1
     ultima_revista = primer_revista + 49
     if ultima_revista > total_revistas:
         ultima_revista = total_revistas
     paginas_iniciales = [pagina, pagina+1, pagina+2]
-    paginas_finales = [(len(revistas) // 50) - 1,(len(revistas) // 50),(len(revistas) // 50) + 1]
+    paginas_finales = [(len(new_revistas) // 50) - 1,(len(new_revistas) // 50),(len(new_revistas) // 50) + 1]
     pagina_anterior = pagina - 1
     pagina_siguiente = pagina + 1
     return render_template("table.html", route=ruta, page=pagina, 
