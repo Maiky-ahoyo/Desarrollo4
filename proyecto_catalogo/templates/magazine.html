@@ -30,12 +30,12 @@
                 <h1>Magazine's Areas and Categories:</h1>
                 <ul class="mx-auto w-fit text-left">
                     {% for area, categories in areas.items() %}
-                    <li class="inline-block">
-                        <a href="/areas/{{area}}/page=1" class="underline text-xl">{{area}}</a>
+                    <li>
+                        <a href="/areas/{{area}}/page=1" class="underline text-xl">- {{area}}</a>
                         <ul>
                             {% for category in categories %}
                             <li>
-                                <a href="/categories/{{category}}/page=1" class="underline text-lg pl-4">{{category}}</a>
+                                <a href="/categories/{{category}}/page=1" class="underline text-lg pl-8">{{category}}</a>
                             </li>
                             {% endfor %}
                         </ul>
@@ -55,11 +55,11 @@
                 <h1>Magazine's Publisher:</h1>
                 <a href="/magazines/{{magazine['Publisher']}}/page=1" class="underline text-lg">{{magazine['Publisher']}}</a>
             </div>
-            <div class="w-full h-full py-3 border-r border-y border-gray-300">
+            <div class="w-full h-full py-3 border-r border-t border-gray-300">
                 <h1>Magazine's ISSN:</h1>
                 <span class="text-lg">{{magazine['ISSN']}}</span>
             </div>
-            <div class="w-full h-full py-3 border-l border-y border-gray-300">
+            <div class="w-full h-full py-3 border-l border-t border-gray-300">
                 <div class="w-fit mx-auto">{{magazine['Widget'] | safe }}</div>
             </div>
         </div>

@@ -17,7 +17,7 @@
         </tr>
         {% for magazine in magazines %}
         <tr class="flex justify-between w-full bg-[#F1F1F1] p-2 items-center border-t-gray-300 border-t-2">
-            <td class="w-2/6"><a href="/magazines/{{magazine['Title']}}" target="_blank" class="text-indigo-950 font-semibold underline">{{magazine['Title']}}</a></td>
+            <td class="w-2/6"><a href="/magazines/{{magazine['Title']}}" class="text-indigo-950 font-semibold underline">{{magazine['Title']}}</a></td>
             <td class="w-1/6"><a href="/magazines/{{magazine['Catalogue']}}/page=1" class="text-indigo-950 font-semibold underline">{{magazine['Catalogue']}}</a></td>
             <td class="w-1/6">{{magazine['SJR']}}</td>
             <td class="w-1/6">{{magazine['H Index']}}</td>

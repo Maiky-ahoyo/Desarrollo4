@@ -16,12 +16,13 @@ def crea_dict_areas(revistas:list)->dict:
     '''
     d = {}
     for revista in revistas:
-        key = revista["Areas/Categories"]
-        key = key.split(":")[0].strip("' { '")
-        if key in d:
-            d[key].append(revista)
-        else:
-            d[key] = [revista]
+        areas = revista["Areas/Categories"].replace("'", '"')
+        areas_dict = json.loads(areas)
+        for categoria in areas_dict:
+            if categoria in d:
+                d[categoria].append(revista)
+            else:
+                d[categoria] = [revista]
     d_sorted = {k: v for k, v in sorted(d.items(), key=lambda item: item[0])}        
     return d_sorted
 
@@ -31,14 +32,14 @@ def crea_dict_categorias(revistas:list)->dict:
     '''
     d = {}
     for revista in revistas:
-        key = revista["Areas/Categories"]
-        key = key.split(":")[1].split(",")
-        for categoria in key:
-            categoria = categoria.strip("[ ' ' ] }")
-            if categoria in d:
-                d[categoria].append(revista)
-            else:
-                d[categoria] = [revista]
+        areas = revista["Areas/Categories"].replace("'", '"')
+        areas_dict = json.loads(areas)
+        for area, categorias in areas_dict.items():
+            for categoria in categorias:
+                if categoria in d:
+                    d[categoria].append(revista)
+                else:
+                    d[categoria] = [revista]
     d_sorted = {k: v for k, v in sorted(d.items(), key=lambda item: item[0])}
     return d_sorted
 
@@ -110,15 +111,21 @@ def crea_lista_palabras(revistas:list, inicial:str)->list:
     for revista in revistas:
         key = revista["Title"]
         key = key.split(" ")
+        simbolos = ["-", "_", ":", ";", ",", ".", "!", "?", "¿", "¡",
+                    "=", "+", "*", "/", "&", "%", "$", "#", "@", "[",
+                    "]", "{", "}", "'", '"', "<", ">","/", "|"]
         for palabra in key:
-            if palabra.upper().startswith(inicial):
+            for simbolo in simbolos:
+                palabra = palabra.replace(simbolo, "").upper()
+            if palabra.startswith(inicial):
                 if palabra not in l:
                     l.append(palabra)
-    return l
+    l_sorted = sorted(l)                
+    return l_sorted
 
 def crea_lista_por_palabra(revistas:list, palabra:str)->list:
-    ''' Crea diccionario de palabras clave a partir de 
-        la lista de revistas
+    ''' Crea lista de revistas a partir
+        de la palabra clave
     '''
     l = []
     for revista in revistas:
