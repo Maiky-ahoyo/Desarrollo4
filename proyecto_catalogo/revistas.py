@@ -33,10 +33,10 @@ def extraer_datos(html):
             if len(sjr_q) > 1:
                 q = sjr_q[1]
             else:
-                q = 'N/A' 
+                q = 'N-A' 
         else:
             sjr = '0'
-            q = 'N/A'         
+            q = 'N-A'         
         h_index = dato[4].text
         total_citas = dato[8].text
         info_adicional = extraer_info_adicional(link)
@@ -68,7 +68,7 @@ def extraer_info_adicional(url):
     if divs[7].a:
         sitio_web = divs[7].a['href']
     else:
-        sitio_web = 'N/A'
+        sitio_web = 'N--A'
     areas = {}
     for area in divs[1].find_all('li'):
         if area.find_all('ul'):
@@ -79,7 +79,7 @@ def extraer_info_adicional(url):
     editorial = divs[2].find('a').text.strip()
     issn = divs[5].find('p').text.strip()
     if issn == "-":
-        issn = 'N/A'
+        issn = 'N-A'
     widget = body.find('input', id='embed_code')
     widget = widget['value']
     return [sitio_web, areas, editorial, issn, widget]

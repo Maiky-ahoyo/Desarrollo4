@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block head %}
+{% block title %}{% endblock %}
+{% endblock %}
+{% block body %}
+
+<div class="w-full py-6 bg-[#C0CEE3] ">
+    <div class="w-11/12 mx-auto my-4 text-center">
+        <div class="w-full bg-[#141f3a] text-white text-2xl place-content-center font-semibold rounded-t-md py-2">
+            <h1>{{magazine['Title']}}</h1>
+        </div>
+        <div class="grid grid-cols-2 w-full bg-white text-[#141f3a] text-xl font-semibold rounded-b-md py-2">
+            <div class="w-full h-full py-3 border-r border-b border-gray-300">
+                <h1>Magazine's Catalogue:</h1>
+                <a href="/magazines/{{magazine['Catalogue']}}/page=1" class="underline text-lg">{{magazine['Catalogue']}}</a>
+            </div>
+            <div class="w-full h-full py-3 border-l border-b border-gray-300">
+                <h1>Magazine's SJR:</h1>
+                <span class="text-lg">{{magazine['SJR']}}</span>
+            </div>
+            <div class="w-full h-full py-3 border-r border-y border-gray-300">
+                <h1>Magazine's Q:</h1>
+                <a href="/magazines/{{q}}/page=1" class="underline text-lg">{{magazine['Q']}}</a>
+            </div>
+            <div class="w-full h-full py-3 border-l border-y border-gray-300">
+                <h1>Magazine's H Index:</h1>
+                <span class="text-lg">{{magazine['H Index']}}</span>
+            </div>
+            <div class="block w-full h-full py-3 border-r border-y border-gray-300">
+                <h1>Magazine's Areas and Categories:</h1>
+                <ul class="mx-auto w-fit text-left">
+                    {% for area, categories in areas.items() %}
+                    <li class="inline-block">
+                        <a href="/areas/{{area}}/page=1" class="underline text-xl">{{area}}</a>
+                        <ul>
+                            {% for category in categories %}
+                            <li>
+                                <a href="/categories/{{category}}/page=1" class="underline text-lg pl-4">{{category}}</a>
+                            </li>
+                            {% endfor %}
+                        </ul>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="w-full h-full py-3 border-l border-y border-gray-300">
+                <h1>Magazine's Cites:</h1>
+                <span class="text-lg">{{magazine['Total Cites']}}</span>
+            </div>
+            <div class="w-full h-full py-3 border-r border-y border-gray-300">
+                <h1>Magazine's Website:</h1>
+                <a href="{{magazine['Website']}}" class="underline text-lg">Homepage</a>
+            </div>
+            <div class="w-full h-full py-3 border-l border-y border-gray-300">
+                <h1>Magazine's Publisher:</h1>
+                <a href="/magazines/{{magazine['Publisher']}}/page=1" class="underline text-lg">{{magazine['Publisher']}}</a>
+            </div>
+            <div class="w-full h-full py-3 border-r border-y border-gray-300">
+                <h1>Magazine's ISSN:</h1>
+                <span class="text-lg">{{magazine['ISSN']}}</span>
+            </div>
+            <div class="w-full h-full py-3 border-l border-y border-gray-300">
+                <div class="w-fit mx-auto">{{magazine['Widget'] | safe }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

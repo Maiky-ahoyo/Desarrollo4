@@ -21,7 +21,7 @@
             <td class="w-1/6"><a href="/magazines/{{magazine['Catalogue']}}/page=1" class="text-indigo-950 font-semibold underline">{{magazine['Catalogue']}}</a></td>
             <td class="w-1/6">{{magazine['SJR']}}</td>
             <td class="w-1/6">{{magazine['H Index']}}</td>
-            <td class="w-1/6">{{magazine['Q']}}</td>
+            <td class="w-1/6"><a href="/magazines/{{q}}/page=1" class="text-indigo-950 font-semibold underline">{{magazine['Q']}}</a></td>
         </tr>
         {% endfor %}
     </table>
@@ -54,10 +54,12 @@
             <span class="relative inline-flex items-center bg-white border-gray-300 border text-slate-950 px-3 py-1">...</span>
             {% endif %}
             {% for pg in last_pages %}
+            {% if not pg < 1%}
             {% if pg == page %}
             <a href="{{route}}/page={{pg}}" class="relative inline-flex items-center bg-[#294690] border-gray-300 border text-white px-3 py-1 hover:shadow-lg transition duration-500">{{pg}}</a>
             {% else %}
             <a href="{{route}}/page={{pg}}" class="relative inline-flex items-center bg-white hover:bg-[#294690] border-gray-300 border text-slate-950 hover:text-white px-3 py-1 hover:shadow-lg transition duration-500">{{pg}}</a>
+            {% endif %}
             {% endif %}
             {% endfor %}
             {% if page < last_pages[2] %}

@@ -4,10 +4,11 @@ from funciones import crea_dict_areas
 from funciones import crea_dict_categorias
 from funciones import crea_dict_catalogos
 from funciones import crea_dict_editoriales
-from funciones import crea_diccionario_iniciales
-from funciones import crea_diccionario_qs
+from funciones import crea_dict_iniciales
+from funciones import crea_dict_qs
 from funciones import crea_lista_por_palabra
 from funciones import crea_lista_palabras
+from funciones import get_datos_revista
 from funciones import paginacion
 
 app = Flask(__name__)
@@ -18,19 +19,22 @@ total_paginas = len(revistas) // 50
 areas_revistas = crea_dict_areas(revistas)
 categorias_revistas = crea_dict_categorias(revistas)
 catalogos_revistas = crea_dict_catalogos(revistas)
+iniciales_revistas = crea_dict_iniciales(revistas)
+qs_revistas = crea_dict_qs(revistas)
 editoriales_revistas = crea_dict_editoriales(revistas)
-iniciales_revistas = crea_diccionario_iniciales(revistas)
-qs_revistas = crea_diccionario_qs(revistas)
+qs = crea_dict_qs(revistas).keys()
 catalogos = crea_dict_catalogos(revistas).keys()
-qs = crea_diccionario_qs(revistas).keys()
+editoriales = crea_dict_editoriales(revistas).keys()
 
 @app.route("/")
 def index():
     return render_template("index.html", alphabet=abecedario, qs=qs_revistas.keys(), catalogues=catalogos_revistas.keys())
 
-@app.route("/magazine/<titulo>")
-def magazine(titulo:str):
-    return render_template()
+@app.route("/magazines/<titulo>")
+def magazine(titulo:str):   
+    revista = get_datos_revista(revistas, titulo)[0]
+    areas = get_datos_revista(revistas, titulo)[1]
+    return render_template("magazine.html", magazine=revista, areas=areas)
 
 @app.route("/magazines/page=<pagina>")
 def magazines(pagina:str):
@@ -44,6 +48,8 @@ def magazines(pagina:str):
         ultima_revista = total_revistas
     paginas_iniciales = [pagina, pagina+1, pagina+2]
     paginas_finales = [(len(revistas) // 50) - 1,(len(revistas) // 50),(len(revistas) // 50) + 1]
+    if paginas_finales[0] < paginas_iniciales[0]:
+        paginas_finales = [1, 1, 1]
     pagina_anterior = pagina - 1
     pagina_siguiente = pagina + 1
     return render_template("table.html", route=ruta, page=pagina, first_magazine=primer_revista, 
@@ -62,6 +68,10 @@ def catalogue(sub:str, pagina:str):
         if catalogo in sub:
             revistas = catalogos_revistas[sub]
             texto = f"Magazines from the catalogue: {sub}"
+    for editorial in editoriales:
+        if editorial in sub:
+            revistas = editoriales_revistas[sub]
+            texto = f"Magazines from the publisher: {sub}"        
     ruta = f"/magazines/{sub}"
     pagina = int(pagina)
     total_revistas = len(revistas)

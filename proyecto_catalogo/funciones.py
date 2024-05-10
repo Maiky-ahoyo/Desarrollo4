@@ -1,5 +1,6 @@
 import csv
 import os
+import json
 
 def procesa_csv(nombre_archivo:str)->list:
     '''
@@ -69,7 +70,7 @@ def crea_dict_editoriales(revistas:list)->dict:
             d[key] = [revista]
     return d
 
-def crea_diccionario_iniciales(revistas:list)->dict:
+def crea_dict_iniciales(revistas:list)->dict:
     ''' Crea diccionario de iniciales a partir de 
         la lista de revistas
     '''
@@ -86,7 +87,7 @@ def crea_diccionario_iniciales(revistas:list)->dict:
     d_sorted = {k: v for k, v in sorted(d.items(), key=lambda item: item[0])}
     return d_sorted
 
-def crea_diccionario_qs(revistas:list)->dict:
+def crea_dict_qs(revistas:list)->dict:
     ''' Crea diccionario de Q a partir de 
         la lista de revistas
     '''
@@ -137,6 +138,15 @@ def paginacion(lista:list, pagina:int)->list:
     fin = inicio + 50
     return lista[inicio:fin]
 
+def get_datos_revista(revistas:list, titulo:str)->list:
+    ''' Regresa un diccionario con los datos de la revista
+    '''
+    for revista in revistas:
+        if revista["Title"] == titulo:
+            areas = revista["Areas/Categories"].replace("'", '"')
+            areas_dict = json.loads(areas)
+            return [revista, areas_dict]
+        
 if __name__ == "__main__":
     os.system('cls')
     revistas = procesa_csv('revistas.csv')
@@ -144,10 +154,10 @@ if __name__ == "__main__":
     categorias = crea_dict_categorias(revistas)
     catalogos = crea_dict_catalogos(revistas)
     editoriales = crea_dict_editoriales(revistas)
-    iniciales = crea_diccionario_iniciales(revistas)
-    qs = crea_diccionario_qs(revistas).keys()
+    iniciales = crea_dict_iniciales(revistas)
+    qs = crea_dict_qs(revistas).keys()
     total_paginas = len(revistas) // 50
     palabras = crea_lista_palabras(revistas, "and")
     revistas_palabra = crea_lista_por_palabra(revistas, "Franzosische")
-    revis = paginacion(revistas_palabra, 1)
-    print(revis)
+    revis = get_datos_revista(revistas, "Ca-A Cancer Journal for Clinicians")
+    #print(revis)
